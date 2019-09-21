@@ -1,6 +1,6 @@
 # Application Setup
 
-### For the project report and developer information click [here](https://github.com/PhilipPhil/task-master-cs2102/blob/master/project%20report.pdf)
+### For the project report and developer information click [here](https://github.com/PhilipPhil/Task-Master/blob/master/project%20report.pdf)
 
 In order to setup the application, the steps for database setup need to be completed first, and in the exact order given. Then, the application environment setup needs to be completed, also in order.
 
