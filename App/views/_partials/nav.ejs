@@ -1,0 +1,120 @@
+<nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+  <a class="navbar-brand" href="#">Task Master</a>
+  <button
+    class="navbar-toggler"
+    type="button"
+    data-toggle="collapse"
+    data-target="#navbarNav"
+    aria-controls="navbarNav"
+    aria-expanded="false"
+    aria-label="Toggle navigation"
+  >
+    <span class="navbar-toggler-icon"></span>
+  </button>
+  <div class="collapse navbar-collapse" id="navbarNav">
+    <ul class="navbar-nav">
+      <li class="nav-item <% if (navCat === 'home') { %>active<% } %>">
+        <a class="nav-link" href="/">Home</a>
+      </li>
+      <li class="nav-item <% if (navCat === 'services') { %>active<% } %>">
+        <a class="nav-link" href="/services">Services</a>
+      </li>
+      <% if (loggedIn && loggedIn.isuser) { %>
+      <li class="nav-item <% if (navCat === 'booking') { %>active<% } %>">
+        <a class="nav-link" href="/booking">Booking</a>
+      </li>
+      <% } %>
+    </ul>
+  </div>
+  <ul class="navbar-nav">
+    <% if (loggedIn) { %> <% if (loggedIn.isadmin ) { %>
+    <li class="nav-item <% if (navCat === 'admin') { %>active<% } %>">
+      <a class="nav-link" href="/admin">Admin</a>
+    </li>
+    <% } %> <% if (loggedIn.isworker) { %>
+    <li class="nav-item <% if (navCat === 'worker') { %>active<% } %>">
+      <a class="nav-link" href="/worker">Worker</a>
+    </li>
+    <% } %>
+    <li
+      class="nav-item dropdown <% if (navCat.indexOf('account') !== -1) { %>active<% } %>"
+    >
+      <a
+        class="nav-link dropdown-toggle"
+        href="#"
+        id="navbarDropdown"
+        role="button"
+        data-toggle="dropdown"
+        aria-haspopup="true"
+        aria-expanded="false"
+      >
+        Account
+      </a>
+      <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+        <a
+          class="dropdown-item <% if (navCat === 'account_edit') { %>active<% } %>"
+          href="/account/edit"
+          >Edit Account</a
+        >
+        <a
+          class="dropdown-item <% if (navCat === 'account_refer') { %>active<% } %>"
+          href="/account/refer"
+          >Refer a Friend</a
+        >
+      </div>
+    </li>
+    <li class="nav-item">
+      <a class="nav-link" href="/account/logout">Log Out</a>
+    </li>
+    <% } else { %>
+    <li class="nav-item">
+      <a
+        class="nav-link <% if (navCat === 'login') { %>active<%}%>"
+        href="/account/login"
+        >Log In</a
+      >
+    </li>
+    <li class="nav-item">
+      <a
+        class="nav-link <% if (navCat === 'register') { %>active<%}%>"
+        href="/account/register"
+        >Register</a
+      >
+    </li>
+    <% } %>
+  </ul>
+</nav>
+<br />
+<% if (messages.info) { %> <% for (let i = 0; i < messages.info.length; i++) {
+%>
+<div class="alert alert-info alert-dismissible fade show" role="alert">
+  <strong>Hey!</strong> <%= messages.info[i] %>
+  <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+    <span aria-hidden="true">&times;</span>
+  </button>
+</div>
+<% } %> <% } %> <% if (messages.warning) { %> <% for (let i = 0; i <
+messages.warning.length; i++) { %>
+<div class="alert alert-warning alert-dismissible fade show" role="alert">
+  <strong>Watch Out!</strong> <%= messages.warning[i] %>
+  <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+    <span aria-hidden="true">&times;</span>
+  </button>
+</div>
+<% } %> <% } %> <% if (messages.error) { %> <% for (let i = 0; i <
+messages.error.length; i++) { %>
+<div class="alert alert-danger alert-dismissible fade show" role="alert">
+  <strong>Attention!</strong> <%= messages.error[i] %>
+  <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+    <span aria-hidden="true">&times;</span>
+  </button>
+</div>
+<% } %> <% } %> <% if (messages.success) { %> <% for (let i = 0; i <
+messages.success.length; i++) { %>
+<div class="alert alert-success alert-dismissible fade show" role="alert">
+  <strong>Success!</strong> <%= messages.success[i] %>
+  <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+    <span aria-hidden="true">&times;</span>
+  </button>
+</div>
+<% } %> <% } %>

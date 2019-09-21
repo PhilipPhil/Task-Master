@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <!-- This just includes stuff that should go in head such as title and CSS/JS inclusions -->
+    <%- include ../_partials/head.ejs %>
+  </head>
+  <body>
+    <div class="container">
+      <%- include ../_partials/nav.ejs %>
+      <h3>Booking Summary - ID: <%= booking.bookingid %></h3>
+      <h4>General Information</h4>
+      <table class="table">
+        <tbody>
+          <tr>
+            <td><strong>Booking ID: </strong> <%= booking.bookingid %></td>
+            <td><strong>Service: </strong> <%= booking.sname %></td>
+            <td>
+              <strong>Price: </strong> $<%= booking.price *
+              Math.ceil(moment(booking.endtime).diff( moment(booking.starttime),
+              'hours', true )) %>
+            </td>
+            <td>
+              <strong>Start Time: </strong> <%=
+              moment(booking.starttime).format('llll') %>
+            </td>
+          </tr>
+          <tr>
+            <td><strong>Address: </strong> <%= booking.address %></td>
+            <td><strong>Category: </strong> <%= booking.catname %></td>
+            <td><strong>Service Area: </strong> <%= booking.regname %></td>
+            <td>
+              <strong>End Time: </strong> <%=
+              moment(booking.endtime).format('llll') %>
+            </td>
+          </tr>
+          <tr>
+            <td colspan="2">
+              <strong>Description: </strong><br />
+              <%= booking.description %>
+            </td>
+            <td colspan="2">
+              <strong>Comments: </strong><br />
+              <%= booking.comments %>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+      <hr />
+      <% if (loggedIn.isworker) { %>
+      <h4>Customer Information</h4>
+      <table class="table">
+        <tbody>
+          <tr>
+            <td><strong>Name: </strong> <%= booking.cname %></td>
+            <td><strong>Phone: </strong> <%= booking.cphone %></td>
+            <td><strong>Email: </strong> <%= booking.cemail %></td>
+          </tr>
+        </tbody>
+      </table>
+      <% } %> <% if (loggedIn.isuser) { %>
+      <h4>Worker Information</h4>
+      <table class="table">
+        <tbody>
+          <tr>
+            <td><strong>Name: </strong> <%= booking.wname %></td>
+            <td><strong>Phone: </strong> <%= booking.wphone %></td>
+            <td><strong>Email: </strong> <%= booking.wemail %></td>
+          </tr>
+        </tbody>
+      </table>
+      <hr />
+      <h4>Payment Information</h4>
+      <table class="table">
+        <tbody>
+          <tr>
+            <td>
+              <strong>Card: </strong> **** **** **** <%= booking.lastfour %>
+            </td>
+            <td><strong>Status: </strong> Paid</td>
+          </tr>
+        </tbody>
+      </table>
+      <% } %>
+    </div>
+  </body>
+</html>

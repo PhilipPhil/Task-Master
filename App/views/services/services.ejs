@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <!-- This just includes stuff that should go in head such as title and CSS/JS inclusions -->
+    <%- include ../_partials/head.ejs %>
+  </head>
+  <body>
+    <div class="container">
+      <%- include ../_partials/nav.ejs %>
+      <h4>Available Services</h4>
+      <form id="searchForm">
+        <div class="form-row">
+          <div class="col">
+            <input
+              type="text"
+              class="form-control"
+              name="q"
+              placeholder="Service Name"
+              value="<%= query.q %>"
+            />
+          </div>
+          <div class="col-sm-2">
+            <input
+              type="number"
+              class="form-control"
+              name="p"
+              placeholder="Max Price"
+              value="<%= query.p %>"
+            />
+          </div>
+          <div class="col">
+            <select class="form-control" name="c">
+              <option value="" <% if (query.c === "") { %>selected <% } %>>Any Category</option>
+              <% for (let i = 0; i < categories.length; i++) { %>
+              <option value="<%= categories[i].catid %>"
+                  <% if (query.c == categories[i].catid) { %>selected<% } %>
+                ><%= categories[i].name %></option
+              >
+              <% } %>
+            </select>
+          </div>
+          <div class="col">
+            <select class="form-control" name="r">
+              <option value="" <% if (query.r === "") { %>selected<% } %>>Any Region</option>
+              <% for (let i = 0; i < regions.length; i++) { %>
+              <option value="<%= regions[i].regionid %>"
+                <% if (query.r == regions[i].regionid) { %>selected<% } %>
+                ><%= regions[i].name %></option
+              >
+              <% } %>
+            </select>
+          </div>
+          <div class="col">
+            <select class="form-control" name="s">
+              <option value="" <% if (query.s === "") { %>selected<% } %>>Any Rating</option>
+              <option value="2" <% if (query.s === "2") { %>selected<% } %>>&#8805;2 stars</option>
+              <option value="3" <% if (query.s === "3") { %>selected<% } %>>&#8805;3 stars</option>
+              <option value="4" <% if (query.s === "4") { %>selected<% } %>>&#8805;4 stars</option>
+            </select>
+          </div>
+          <button type="submit" class="btn btn-primary">Filter Results</button>
+        </div>
+      </form>
+      <br />
+      <% if (services.length === 0) { %>
+      <p>No services were found matching your query.</p>
+      <% } else { %>
+      <table class="table">
+        <thead class="thead-dark">
+          <tr>
+            <th>Name</th>
+            <th>Description</th>
+            <th>Hourly Price</th>
+            <th>Category</th>
+            <th>Service Area</th>
+            <th>Average Rating</th>
+            <th>Actions</th>
+          </tr>
+        </thead>
+        <tbody>
+          <% for(let i = 0; i < services.length; i++) { %>
+          <tr>
+            <!-- NOTE: JS only accepts lowercase letters-->
+            <td><%= services[i].sname %></td>
+            <td><%= services[i].description %></td>
+            <td>$<%= services[i].price %></td>
+            <td><%= services[i].cname %></td>
+            <td><%= services[i].rname %></td>
+            <td><%= services[i].avg == null ? "No rating" : (Math.round(services[i].avg * 100) / 100) + " stars" %></td>
+            <td>
+              <div class="btn-group btn-group-sm">
+                <a class="btn btn-secondary btn-sm" href="/services/view/<%= services[i].serviceid %>">Details</a>
+                <a class="btn btn-primary btn-sm" href="/booking/new/<%= services[i].serviceid %>">Book</a>
+              </div>
+            </td>
+          </tr>
+          <% } %>
+        </tbody>
+      </table>
+      <% } %>
+    </div>
+  </body>
+</html>
